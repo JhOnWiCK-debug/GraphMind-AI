@@ -5,6 +5,9 @@ from sentence_transformers import SentenceTransformer
 from langchain_ollama import ChatOllama
 from langgraph.graph import StateGraph, END
 
+from critic import evaluate_answer
+from query_rewriter import rewrite_query
+
 
 # -------------------
 # STATE
@@ -15,6 +18,7 @@ class GraphState(TypedDict):
     context: str
     answer: str
     reflection: str
+    attempts: int
 
 
 # -------------------
@@ -34,7 +38,7 @@ client = chromadb.PersistentClient(
 )
 
 collection = client.get_collection(
-    "resume"
+    "documents"
 )
 
 
@@ -52,7 +56,8 @@ def planner(state):
 def retriever(state):
 
     print("Retriever Running")
-
+    
+    state["attempts"] += 1
     query_embedding = embedding_model.encode(
         state["question"]
     ).tolist()
@@ -94,17 +99,47 @@ Question:
 
 def reflection(state):
 
-    print("Reflection Running")
+    print("Critic Running")
 
-    if len(state["answer"]) > 20:
-        state["reflection"] = "Answer looks good"
+    verdict = evaluate_answer(
+        state["question"],
+        state["context"],
+        state["answer"]
+    )
 
-    else:
-        state["reflection"] = "Answer may be weak"
+    state["reflection"] = verdict
 
     return state
 
+def rewrite(state):
 
+    print("Query Rewriter Running")
+
+    new_question = rewrite_query(
+        state["question"]
+    )
+
+    print(
+        f"Rewritten Query: {new_question}"
+    )
+
+    state["question"] = new_question
+
+    return state
+
+def route_after_reflection(state):
+
+    print(
+        f"Critic Verdict: {state['reflection']}"
+    )
+
+    if "YES" in state["reflection"].upper():
+        return END
+
+    if state["attempts"] >= 3:
+        return END
+
+    return "rewrite"
 # -------------------
 # GRAPH
 # -------------------
@@ -130,6 +165,10 @@ workflow.add_node(
     "reflection",
     reflection
 )
+workflow.add_node(
+    "rewrite",
+    rewrite
+)
 
 workflow.set_entry_point(
     "planner"
@@ -150,9 +189,17 @@ workflow.add_edge(
     "reflection"
 )
 
-workflow.add_edge(
+workflow.add_conditional_edges(
     "reflection",
-    END
+    route_after_reflection,
+    {
+        "rewrite": "rewrite",
+        END: END
+    }
+)
+workflow.add_edge(
+    "rewrite",
+    "retriever"
 )
 
 graph = workflow.compile()
@@ -171,7 +218,8 @@ result = graph.invoke(
         "question": question,
         "context": "",
         "answer": "",
-        "reflection": ""
+        "reflection": "",
+        "attempts": 0
     }
 )
 
