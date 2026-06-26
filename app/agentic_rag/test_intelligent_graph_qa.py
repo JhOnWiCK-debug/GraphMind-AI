@@ -1,6 +1,6 @@
 import pickle
 
-from intelligent_graph_qa import (
+from graph.intelligent_graph_qa import (
     intelligent_graph_qa
 )
 

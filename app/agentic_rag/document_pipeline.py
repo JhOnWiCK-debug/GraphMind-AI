@@ -10,7 +10,7 @@ from relationship_extractor import (
     extract_relationships
 )
 
-from build_knowledge_graph import (
+from graph.build_knowledge_graph import (
     build_knowledge_graph
 )
 

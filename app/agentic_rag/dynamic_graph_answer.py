@@ -1,6 +1,4 @@
-from graph_reasoner import (
-    answer_graph_question
-)
+from graph.graph_reasoner import answer_graph_question
 
 
 def get_dynamic_graph_answer(

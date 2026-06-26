@@ -1,4 +1,4 @@
-from graph_retriever import graph_search
+from graph.graph_retriever
 
 
 def hybrid_retrieve(

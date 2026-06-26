@@ -2,7 +2,7 @@ from agent_router import (
     route_query
 )
 
-from intelligent_graph_qa import (
+from graph.intelligent_graph_qa import (
     intelligent_graph_qa
 )
 

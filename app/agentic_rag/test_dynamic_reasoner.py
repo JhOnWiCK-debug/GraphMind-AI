@@ -1,10 +1,8 @@
-from build_knowledge_graph import (
+from graph.build_knowledge_graph import (
     build_knowledge_graph
 )
 
-from graph_reasoner import (
-    answer_graph_question
-)
+from graph.graph_reasoner import answer_graph_question
 
 relationships = [
 

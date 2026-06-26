@@ -6,9 +6,7 @@ from relation_extractor import (
     extract_relation
 )
 
-from graph_reasoner import (
-    answer_graph_question
-)
+from graph.graph_reasoner import answer_graph_question
 
 
 def graph_qa(

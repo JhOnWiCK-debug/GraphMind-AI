@@ -3,12 +3,12 @@ import pickle
 
 from retrieval.faiss_store import FAISSStore
 from retrieval.faiss_retriever import FAISSRetriever
-from graph_retriever import graph_search
+from graph.graph_retriever
 
 from langchain_ollama import ChatOllama
 from pdf_uploader import upload_pdf
 from critic import evaluate_answer
-from intelligent_graph_qa import (
+from graph.intelligent_graph_qa import (
     intelligent_graph_qa
 )
 

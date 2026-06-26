@@ -1,6 +1,6 @@
 import pickle
 
-from graph_query import (
+from graph.graph_query import(
     get_related_entities
 )
 

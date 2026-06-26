@@ -1,5 +1,5 @@
 from graph_builder import build_graph
-from graph_retriever import graph_search
+from graph.graph_retriever
 
 chunks = [
     "Data Science",

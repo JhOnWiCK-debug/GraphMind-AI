@@ -1,6 +1,6 @@
 import pickle
 
-from graph_answer import (
+from graph.graph_answer import (
     get_graph_answer
 )
 

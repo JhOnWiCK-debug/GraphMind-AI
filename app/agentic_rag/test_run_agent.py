@@ -4,7 +4,24 @@ from retrieval.faiss_store import FAISSStore
 from retrieval.faiss_retriever import FAISSRetriever
 from run_agent import (
     run_agent
-   )
+)
+
+with open(
+    "documents.pkl",
+    "rb"
+) as f:
+    documents = pickle.load(f)
+
+store = FAISSStore.load(
+    "faiss.index",
+    "documents.pkl"
+)
+
+print("Creating retriever...")
+
+retriever = FAISSRetriever(store)
+
+print("Retriever created successfully!")
 
 # Knowledge Graph
 

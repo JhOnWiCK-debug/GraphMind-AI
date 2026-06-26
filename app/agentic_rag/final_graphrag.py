@@ -2,7 +2,7 @@ import pickle
 from retrieval.faiss_store import FAISSStore
 from retrieval.faiss_retriever import FAISSRetriever
 
-from graph_retriever import graph_search
+from graph.graph_retriever
 
 from langchain_ollama import ChatOllama
 

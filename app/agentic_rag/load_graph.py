@@ -1,6 +1,6 @@
 import pickle
 
-from graph_retriever import graph_search
+from graph.graph_retriever
 
 with open(
     "graph.pkl",
