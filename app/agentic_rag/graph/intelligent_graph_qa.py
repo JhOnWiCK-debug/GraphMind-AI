@@ -1,8 +1,8 @@
-from question_understanding import (
+from ..question_understanding import (
     understand_question
 )
 
-from graph.graph_reasoner import answer_graph_question
+from .graph_reasoner import answer_graph_question
 
 
 def intelligent_graph_qa(

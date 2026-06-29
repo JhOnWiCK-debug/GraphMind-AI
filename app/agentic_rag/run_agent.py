@@ -1,22 +1,24 @@
-from agent_router import (
+from .agent_router import (
     route_query
 )
 
-from graph.intelligent_graph_qa import (
+from .graph.intelligent_graph_qa import (
     intelligent_graph_qa
 )
 
-from faiss_agent import (
+from .faiss_agent import (
     faiss_agent
 )
 
-from document_summary_agent import (
+from .document_summary_agent import (
     summarize_document
 )
 
-from hybrid_agent import (
+from .hybrid_agent import (
     hybrid_agent
 )
+
+
 def run_agent(
     question,
     knowledge_graph,
@@ -58,20 +60,18 @@ def run_agent(
 
     elif route == "SUMMARY":
 
-       return summarize_document(
-        documents
+        return summarize_document(
+            documents
         )
 
-    # HYBRID PLACEHOLDER
+    # HYBRID AGENT
 
     elif route == "HYBRID":
 
         return hybrid_agent(
-        question,
-        knowledge_graph,
-        retriever
-    )
+            question,
+            knowledge_graph,
+            retriever
+        )
 
-        return (
-        "No suitable agent found."
-    )
+    return "No suitable agent found."

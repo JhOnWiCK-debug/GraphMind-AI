@@ -1,8 +1,8 @@
 import pickle
 import networkx as nx
 
-from pdf_processor import extract_text
-from text_chunker import chunk_text
+from .pdf_processor import extract_text
+from .text_chunker import chunk_text
 
 
 def add_pdf_to_graph(pdf_path):

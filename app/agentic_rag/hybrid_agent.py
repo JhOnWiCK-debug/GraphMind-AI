@@ -1,4 +1,4 @@
-from graph.graph_facts import (
+from .graph.graph_facts import (
     get_graph_facts
 )
 
